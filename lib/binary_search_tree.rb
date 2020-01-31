@@ -2,7 +2,6 @@ class BinarySearchTree
 
   def initialize()
     @nodes = []
-
   end
 
   def insert(score = 0, title = "")
@@ -32,5 +31,19 @@ class BinarySearchTree
     current_depth
   end
 
+  def include?(score = nil)
+    current_node = @nodes[0]
+    return true if score == current_node.score
+    found = false
+    until found || (current_node.left || current_node.right)
+      if score < current_node.score
+        current_node = current_node.left
+      else
+        current_node = current_node.right
+      end
+      found = true if score == current_node.score
+    end
+    found
+  end
 
 end
