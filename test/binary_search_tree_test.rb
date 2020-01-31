@@ -38,9 +38,10 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(16, "Johnny English")
     tree.insert(92, "Sharknado 3")
     tree.insert(50, "Hannibal Buress: Animal Furnace")
-    
+
     assert tree.include?(16)
     refute tree.include?(72)
+    assert tree.include?(61)
   end
 
 end

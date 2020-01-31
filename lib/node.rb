@@ -10,4 +10,8 @@ class Node
 
   end
 
+  def leaf?
+    !(@left || @right) #No NOR comparison in ruby :(
+  end
+
 end
