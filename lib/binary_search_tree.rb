@@ -1,12 +1,13 @@
 class BinarySearchTree
 
   def initialize()
-
+    @nodes = {}
   end
 
   def insert(score = 0, title = "")
-    node = Node.new(score, title)
-    node.depth
+    @nodes[score] = Node.new(score, title)
+
+
   end
 
 end
