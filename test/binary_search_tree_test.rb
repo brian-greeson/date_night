@@ -40,8 +40,21 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(50, "Hannibal Buress: Animal Furnace")
 
     assert tree.include?(16)
-    refute tree.include?(72)
+    refute tree.include?(1)
     assert tree.include?(61)
+  end
+
+  def test_knows_depth_of_score
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
+    assert_equal 1, tree.depth_of(92)
+    assert_equal 2, tree.depth_of(50)
+    assert_equal nil, tree.depth_of(1)
+
   end
 
 end

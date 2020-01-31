@@ -32,20 +32,36 @@ class BinarySearchTree
   end
 
   def include?(score = nil)
+    return nil if !score
+    search_by_score(score) != nil
+  end
+
+  def depth_of(score)
+    return nil if !self.include?(score)
+    search_by_score(score)
+  end
+
+  def search_by_score(score)
     current_node = @nodes[0]
+    current_depth = 0
     found = false
 
-    until found
+    until found || !current_node
       if score < current_node.score
-        current_node = current_node.left
+          current_node = current_node.left
       elsif score == current_node.score
         found = true
       else
-        current_node = current_node.right
+          current_node = current_node.right
       end
-      break if current_node.leaf?
+      current_depth += 1
     end
-    found
+
+    if current_node == nil
+      return nil
+    else
+      return current_depth
+    end
   end
 
 
