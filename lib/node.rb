@@ -1,11 +1,13 @@
 
 class Node
-
-  def initialize(name = "", score = 0)
+  attr_reader :name, :score
+  attr_accessor :left, :right
+  def initialize(score = 0, name = "")
     @name = name
     @score = score
-    @neighbors = {left: nil ,
-                  right: nil}
+    @left = nil
+    @right = nil
+
   end
 
 end
