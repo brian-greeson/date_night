@@ -15,37 +15,52 @@ class Node
     !(@child_left || @child_right) #No NOR comparison in ruby :(
   end
 
-  def insert(score, title)
+  def insert(score_to_find, title)
     if @run_recursive
-      inserted_node = insert_recursive(score, title)
+      inserted_node = insert_recursive(score_to_find, title)
       inserted_node.depth
     else
-      insert_iterative(score,title)
+      insert_iterative(score_to_find,title)
     end
 
   end
 
-  # ******************* SEARCHING *******************
-  
+  def depth_of(score_to_find)
+    if @run_recursive
+      search_by_score_recursive(score_to_find)
+    else
+      search_by_score_iterative(score_to_find)
+    end
+  end
 
+  # ******************* SEARCHING *******************
+
+  def search_by_score_iterative(score)
+
+
+  end
+
+  def search_by_score_recursive(score)
+
+  end
 
 
 
   # ******************* INSERTING *******************
 
-  def insert_iterative(score, title)
+  def insert_iterative(score_to_find, title)
     if @title.empty? #Is this the first insert?
       @title = title
-      @score =  score
+      @score =  score_to_find
       return 0
     end
 
-    node_to_place = Node.new(score, title)
+    node_to_place = Node.new(score_to_find, title)
     current_depth = 0
     current_node = self
 
     while node_to_place != current_node
-      if score < current_node.score
+      if score_to_find < current_node.score
         current_node.child_left = node_to_place if !current_node.child_left
         current_node = current_node.child_left
       else
@@ -58,12 +73,12 @@ class Node
     return current_depth
   end
 
-  def insert_recursive(score, title, current_depth = 0)
+  def insert_recursive(score_to_find, title, current_depth = 0)
 
-    if score < self.score
-      @child_left ? @child_left.insert_recursive(score, title, current_depth + 1) : @child_left = Node.new(score, title, current_depth)
+    if score_to_find < self.score
+      @child_left ? @child_left.insert_recursive(score_to_find, title, current_depth + 1) : @child_left = Node.new(score_to_find, title, current_depth)
     else
-      @child_right ? @child_right.insert_recursive(score, title, current_depth + 1) : @child_right = Node.new(score, title, current_depth)
+      @child_right ? @child_right.insert_recursive(score_to_find, title, current_depth + 1) : @child_right = Node.new(score_to_find, title, current_depth)
     end
   end
 
