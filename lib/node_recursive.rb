@@ -15,35 +15,25 @@ class Node
 
   # ******************* INSERTING *******************
   def insert(score, title)
-
-    # binding.pry
     if @title
-      node_to_insert = Node.new(score,title)
-      # binding.pry
-      if node_to_insert.score < @score
-        if @child_left
-          return 1 + @child_left.insert(node_to_insert.score, node_to_insert.title)
-        else
-          @child_left = node_to_insert
-          return 1
-        end
+      if score < @score
+        return 1 + @child_left.insert(score, title) if @child_left
+        @child_left = Node.new(score,title)
+        return 1
       else
-        if @child_right
-          return 1 + @child_right.insert(score, node_to_insert.title)
-        else
-          @child_right = node_to_insert
-          return 1
-        end
+        return 1 + @child_right.insert(score, title) if @child_right
+        @child_right = Node.new(score,title)
+        return 1
       end
     else
       @score = score
       @title = title
       return 0
     end
-
   end
 
   # ******************* SEARCHING *******************
+  
   def depth_of(score_to_find, current_depth = 0)
     # return nil if current_node == nil
     if score_to_find == @score
