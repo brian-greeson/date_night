@@ -25,19 +25,29 @@ class NodeTest < Minitest::Test
     node2.child_right = Node.new
     node3 = Node.new
 
-    refute node.leaf?
-    refute node2.leaf?
-    assert node3.leaf?
+    assert_equal false, node.leaf?
+    assert_equal false, node2.leaf?
+    assert_equal true, node3.leaf?
   end
 
-  def test_can_insert_children
+  def test_can_insert_children_iteratively
     node = Node.new()
-    
+    node.run_recursive = false
+
     assert_equal 0, node.insert(61, "Bill & Ted's Excellent Adventure")
     assert_equal 1, node.insert(16, "Johnny English")
     assert_equal 1, node.insert(92, "Sharknado 3")
     assert_equal 2, node.insert(50, "Hannibal Buress: Animal Furnace")
+  end
 
+  def test_can_insert_children_recursively
+    node = Node.new()
+    node.run_recursive = true
+
+    assert_equal 0, node.insert(61, "Bill & Ted's Excellent Adventure")
+    assert_equal 1, node.insert(16, "Johnny English")
+    assert_equal 1, node.insert(92, "Sharknado 3")
+    assert_equal 2, node.insert(50, "Hannibal Buress: Animal Furnace")
   end
 
 

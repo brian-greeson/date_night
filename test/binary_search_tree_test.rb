@@ -18,7 +18,7 @@ class BinarySearchTreeTest < Minitest::Test
 
 
   def test_it_can_add_multiple_nodes
-
+s
     assert_equal 0, @tree.insert(61, "Bill & Ted's Excellent Adventure")
     assert_equal 1, @tree.insert(16, "Johnny English")
     assert_equal 1, @tree.insert(92, "Sharknado 3")

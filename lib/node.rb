@@ -1,14 +1,14 @@
 
 class Node
   attr_reader :title, :score
-  attr_accessor :child_left, :child_right, :depth
+  attr_accessor :child_left, :child_right, :depth, :run_recursive
   def initialize(score = 0, title = "", depth = nil)
     @title = title
     @score = score
-    @parent = nil
     @child_left   = nil
     @child_right  = nil
-    @depth = depth
+    @depth = depth #Get rid of this next
+    @run_recursive = false
   end
 
   def leaf?
@@ -16,10 +16,17 @@ class Node
   end
 
   def insert(score, title)
-    insert_iterative(score,title)
+    if @run_recursive
+      inserted_node = insert_recursive(score, title)
+      inserted_node.depth
+    else
+      insert_iterative(score,title)
+    end
+
   end
 
 
+  # ******************* INSERTING *******************
 
   def insert_iterative(score, title)
     if @title.empty? #Is this the first insert?
@@ -45,6 +52,16 @@ class Node
 
     return current_depth
   end
+
+  def insert_recursive(score, title, current_depth = 0)
+
+    if score < self.score
+      @child_left ? @child_left.insert_recursive(score, title, current_depth + 1) : @child_left = Node.new(score, title, current_depth)
+    else
+      @child_right ? @child_right.insert_recursive(score, title, current_depth + 1) : @child_right = Node.new(score, title, current_depth)
+    end
+  end
+
 
 
 end
