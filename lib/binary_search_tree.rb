@@ -74,16 +74,18 @@ class BinarySearchTree
     current_node == nil ?  nil : depth
   end
 
-#   def search_recusivly_by_score(score_to_find, current_node)
-#
-#     if score_to_find < current_node.score
-#       search_recusivly_by_score(score_to_find, current_node.child_left)
-#     else
-#       search_recusivly_by_score(score_to_find, current_node.child_right)
-#     end
-#     # we either found something or nothing at this point
-#     node
-#   end
-#
-#
+  def search_recusivly_by_score(score_to_find, current_node, depth = 0)
+
+    if score_to_find < current_node.score
+      search_recusivly_by_score(score_to_find, current_node.child_left, depth + 1)
+    else
+      search_recusivly_by_score(score_to_find, current_node.child_right, depth + 1)
+    end
+    # we either found something or nothing at this point
+    if current_node == nil ? 
+
+
+  end
+
+
 end

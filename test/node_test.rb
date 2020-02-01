@@ -20,9 +20,9 @@ class NodeTest < Minitest::Test
 
   def test_knows_its_not_a_leaf
     node = Node.new
-    node.left = Node.new
+    node.child_left = Node.new
     node2 = Node.new
-    node2.right = Node.new
+    node2.child_right = Node.new
     node3 = Node.new
 
     refute node.leaf?
@@ -30,20 +30,16 @@ class NodeTest < Minitest::Test
     assert node3.leaf?
   end
 
-  def test_starts_at_depth_0
-    node = Node.new
+  def test_can_insert_children
+    node = Node.new()
+    
+    assert_equal 0, node.insert(61, "Bill & Ted's Excellent Adventure")
+    assert_equal 1, node.insert(16, "Johnny English")
+    assert_equal 1, node.insert(92, "Sharknado 3")
+    assert_equal 2, node.insert(50, "Hannibal Buress: Animal Furnace")
 
-    assert_equal 0, node.depth
   end
 
-  def test_can_be_at_another_depth
-    node = Node.new(42, "life")
 
-    assert_equal 0, node.depth
-
-    node.depth = 4
-
-    assert_equal 4, node.depth
-  end
 
 end
