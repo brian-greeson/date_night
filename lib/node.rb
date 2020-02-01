@@ -27,20 +27,34 @@ class Node
 
   def depth_of(score_to_find)
     if @run_recursive
-      search_by_score_recursive(score_to_find)
+      depth_of_recursive(score_to_find)
     else
-      search_by_score_iterative(score_to_find)
+      depth_of_iterative(score_to_find)
     end
   end
 
   # ******************* SEARCHING *******************
 
-  def search_by_score_iterative(score)
+  def depth_of_iterative(score_to_find)
+    return 0 if score_to_find == @score
 
+    current_node = self
+    current_depth = 0
 
+    while score_to_find != current_node.score || current_depth == nil
+      current_depth += 1
+
+      if score_to_find < current_node.score
+        current_node.child_left ? current_node = current_node.child_left : current_depth = nil
+      else
+        current_node.child_right ? current_node = current_node.child_right : current_depth = nil
+      end
+    end
+
+    return current_depth
   end
 
-  def search_by_score_recursive(score)
+  def depth_of_recursive(score_to_find)
 
   end
 
