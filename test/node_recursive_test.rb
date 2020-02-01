@@ -32,6 +32,8 @@ class NodeTest < Minitest::Test
 
   def test_can_insert_children_recursively
     node = Node.new()
+    # binding.pry
+
     assert_equal 0, node.insert(61, "Bill & Ted's Excellent Adventure")
     assert_equal 1, node.insert(16, "Johnny English")
     assert_equal 1, node.insert(92, "Sharknado 3")
@@ -39,7 +41,10 @@ class NodeTest < Minitest::Test
   end
 
   def test_can_find_depth_of_node_recursively
+    skip
     node = Node.new()
+    # binding.pry
+
     node.insert(61, "Bill & Ted's Excellent Adventure")
     node.insert(16, "Johnny English")
     node.insert(92, "Sharknado 3")
