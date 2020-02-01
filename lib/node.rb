@@ -1,12 +1,13 @@
 
 class Node
   attr_reader :name, :score
-  attr_accessor :left, :right, :depth
+  attr_accessor :child_left, :child_right, :depth
   def initialize(score = 0, name = "", depth = 0)
     @name = name
     @score = score
-    @left = nil
-    @right = nil
+    @parent = nil
+    @child_left   = nil
+    @child_right  = nil
     @depth = depth
   end
 
