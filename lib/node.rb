@@ -28,6 +28,12 @@ class Node
   def insert(score_to_find, title)
     if @run_recursive
       self.set_entire_tree_recursion
+
+      if @title.empty? #Is this the first insert?
+        @title = title
+        @score =  score_to_find
+        return @depth
+      end
       inserted_node = insert_recursive(score_to_find, title)
       inserted_node.depth
     else
@@ -69,7 +75,7 @@ class Node
 
   def depth_of_recursive(score_to_find, current_depth = 0)
     # return nil if current_node == nil
-    binding.pry
+
     if score_to_find == @score
       return current_depth
     end
@@ -112,17 +118,27 @@ class Node
   end
 
   def insert_recursive(score_to_find, title, current_depth = 0)
-    if @title.empty? #Is this the first insert?
-      @title = title
-      @score =  score_to_find
-      @depth = current_depth
-      return self
-    end
-
+    # if @title.empty? #Is this the first insert?
+    #   @title = title
+    #   @score =  score_to_find
+    #   @depth = current_depth
+    #   return self
+    # end
+    # binding.pry
     if score_to_find < self.score
-      @child_left ? @child_left.insert_recursive(score_to_find, title, current_depth + 1) : @child_left = Node.new(score_to_find, title, current_depth)
+      if @child_left
+        @child_left.insert_recursive(score_to_find, title, current_depth + 1)
+      else
+        @child_left = Node.new(score_to_find, title, current_depth)
+      end
+
     else
-      @child_right ? @child_right.insert_recursive(score_to_find, title, current_depth + 1) : @child_right = Node.new(score_to_find, title, current_depth)
+
+      if @child_right
+       @child_right.insert_recursive(score_to_find, title, current_depth + 1)
+     else
+       @child_right = Node.new(score_to_find, title, current_depth)
+     end
     end
   end
 
