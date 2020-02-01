@@ -61,7 +61,19 @@ class NodeTest < Minitest::Test
 
     assert_equal 1, node.depth_of(92)
     assert_equal 2, node.depth_of(50)
+  end
 
+  def test_can_find_depth_of_node_recursively
+    node = Node.new()
+    node.run_recursive = true
+
+    node.insert(61, "Bill & Ted's Excellent Adventure")
+    node.insert(16, "Johnny English")
+    node.insert(92, "Sharknado 3")
+    node.insert(50, "Hannibal Buress: Animal Furnace")
+
+    assert_equal 1, node.depth_of(92)
+    assert_equal 2, node.depth_of(50)
   end
 
 
