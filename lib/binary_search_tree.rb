@@ -16,12 +16,11 @@ class BinarySearchTree
   def include?(score = nil)
     # return nil if !score #GuardClause
 
-    search_iterative_for_score(score) == false ? false : true
+    search_iterative_for_score(score) == nil ? false : true
   end
 
   def depth_of(score)
-
-
+    search_iterative_for_score(score)
   end
 
   def search_by_score(score)
@@ -72,7 +71,7 @@ class BinarySearchTree
       break if !current_node # return false if current_node == nil
     end
     # binding.pry
-    current_node != nil ?  depth : false
+    current_node == nil ?  nil : depth
   end
 
 #   def search_recusivly_by_score(score_to_find, current_node)
