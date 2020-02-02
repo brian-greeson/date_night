@@ -84,8 +84,9 @@ class NodeTest < Minitest::Test
     node.insert(50, "Hannibal Buress: Animal Furnace")
 
     assert_equal [{"Johnny English"=>16},
-   {"Hannibal Buress: Animal Furnace"=>50},
-   {"Bill & Ted's Excellent Adventure"=>61},
-  {"Sharknado 3"=>92}], node.sort
+                  {"Hannibal Buress: Animal Furnace"=>50},
+                  {"Bill & Ted's Excellent Adventure"=>61},
+                  {"Sharknado 3"=>92}],
+                  node.sort
   end
 end

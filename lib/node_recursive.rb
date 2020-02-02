@@ -1,7 +1,7 @@
 
 class Node
   attr_reader :title, :score
-  attr_accessor :child_left, :child_right, :depth, :run_recursive
+  attr_accessor :child_left, :child_right, :depth
   def initialize(score = nil, title = nil)
     @title = title
     @score = score
@@ -20,28 +20,32 @@ class Node
   end
 
   def max
-    return {@title => @score} if !@child_right
-    @child_right.max
+    node = self.maximum_node
+    {node.title => node.score}
   end
 
   def min
-    return {@title => @score} if !@child_left
-    @child_left.min
+    node = self.minimum_node
+    {node.title => node.score}
   end
 
-  def sort(sorted_nodes = [])
-    unsorted_nodes = self.search(self.min)
-    
-
-
-
-
-
-
-
+  def maximum_node
+    return self if !@child_right
+    @child_right.maximum_node
   end
 
+  def minimum_node
+    return self if !@child_left
+    @child_left.minimum_node
+  end
 
+  def sort(node = self, sorted_nodes = [])
+    node.sort(node.child_left, sorted_nodes) if node.child_left
+    sorted_nodes << {node.title => node.score}
+    node.sort(node.child_right, sorted_nodes) if node.child_right
+
+    sorted_nodes
+  end
 
 
 
