@@ -103,8 +103,7 @@ class NodeTest < Minitest::Test
 
   def test_it_can_load_files
     node = Node.new()
-
-    node.load("movies.txt")
-    binding.pry
+    
+    assert_equal 99, node.load("movies.txt")
   end
 end

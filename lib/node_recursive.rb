@@ -57,13 +57,16 @@ class Node
   # ******************* LOAD FILE *******************
 
   def load(filename)
-
+    movies_loaded = 0
     CSV.foreach(filename) do |line|
       score = line[0]
       title = line[1]
-      self.insert(score, title) if !self.include?(score)
-
+      if !self.include?(score)
+        self.insert(score, title)
+        movies_loaded += 1
+      end
     end
+    movies_loaded
   end
 
   # ******************* INSERTING *******************
