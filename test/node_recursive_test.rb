@@ -30,6 +30,17 @@ class NodeTest < Minitest::Test
     assert_equal true, node3.leaf?
   end
 
+  def test_it_knows_what_it_contains
+    node = Node.new()
+    node.insert(61, "Bill & Ted's Excellent Adventure")
+    node.insert(16, "Johnny English")
+    node.insert(92, "Sharknado 3")
+    node.insert(50, "Hannibal Buress: Animal Furnace")
+
+    assert_equal true, node.include?(61)
+    assert_equal false, node.include?(1)
+  end
+
   def test_can_insert_children
     node = Node.new()
     # binding.pry
@@ -88,5 +99,12 @@ class NodeTest < Minitest::Test
                   {"Bill & Ted's Excellent Adventure"=>61},
                   {"Sharknado 3"=>92}],
                   node.sort
+  end
+
+  def test_it_can_load_files
+    node = Node.new()
+
+    node.load("movies.txt")
+    binding.pry
   end
 end

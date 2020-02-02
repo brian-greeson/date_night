@@ -1,4 +1,4 @@
-
+require "CSV"
 class Node
   attr_reader :title, :score
   attr_accessor :child_left, :child_right, :depth
@@ -11,6 +11,12 @@ class Node
 
   def leaf?
     !(@child_left || @child_right)
+  end
+
+  def include?(score)
+    return false if !@score
+    map_to_node = self.search(score).flatten
+    map_to_node.last.score == score
   end
 
 
@@ -48,9 +54,17 @@ class Node
   end
 
 
+  # ******************* LOAD FILE *******************
 
+  def load(filename)
 
+    CSV.foreach(filename) do |line|
+      score = line[0]
+      title = line[1]
+      self.insert(score, title) if !self.include?(score)
 
+    end
+  end
 
   # ******************* INSERTING *******************
   def insert(score, title)
