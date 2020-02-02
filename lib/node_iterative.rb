@@ -14,6 +14,36 @@ class Node
     !(@child_left || @child_right) #No NOR comparison in ruby :(
   end
 
+  def min
+    current_node = self
+    min_score = @score
+    while current_node.child_left
+      min_score = current_node.child_left.score
+      current_node = current_node.child_left
+    end
+
+    min_score
+  end
+
+  def max
+    current_node = self
+    max_score = @score
+    while current_node.child_right
+      max_score = current_node.child_right.score
+      current_node = current_node.child_right
+    end
+    def max
+      current_node = self
+      max_score = @score
+      while current_node.child_right
+        max_score = current_node.child_right.score
+        current_node = current_node.child_right
+      end
+      max_score
+    end
+
+
+
   # ******************* INSERTING *******************
   def insert(score_to_find, title)
     if @title.empty? #Is this the first insert?
@@ -41,7 +71,7 @@ class Node
   end
 
   # ******************* SEARCHING *******************
-  def depth_of(score_to_find) 
+  def depth_of(score_to_find)
     eturn 0 if score_to_find == @score
 
     current_node = self
@@ -59,5 +89,17 @@ class Node
 
     return current_depth
   end
+  # 
+  # def depth_of(score_to_find)
+  #   map_to_node = self.search(score_to_find)
+  #   depth_to_node = 0
+  #
+  #   while map_to_node[1]
+  #     depth_to_node += 1
+  #     map_to_node = map_to_node[1]
+  #   end
+  #   map_to_node[0].score == score_to_find ? depth_to_node : nil
+  # end
+
 
 end

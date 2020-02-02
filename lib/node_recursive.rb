@@ -94,11 +94,13 @@ class Node
     if score < @score
       return [self] << @child_left.search(score, self) if @child_left
     end
-
     if score > @score
       return [self] << @child_right.search(score, self) if @child_right
     end
     return [self]
+  end
+
+  def health(depth)
 
 
   end
