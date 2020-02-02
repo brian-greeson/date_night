@@ -2,7 +2,7 @@
 class Node
   attr_reader :title, :score
   attr_accessor :child_left, :child_right, :depth, :run_recursive
-  def initialize(score = 0, title = nil)
+  def initialize(score = nil, title = nil)
     @title = title
     @score = score
     @child_left   = nil
@@ -10,12 +10,38 @@ class Node
   end
 
   def leaf?
-    !(@child_left || @child_right) #No NOR comparison in ruby :(
+    !(@child_left || @child_right)
   end
+
+
+  def depth_of(score_to_find)
+    map_to_node = self.search(score_to_find)
+    depth_to_node = 0
+
+    while map_to_node[1]
+      depth_to_node += 1
+      map_to_node = map_to_node[1]
+    end
+
+    map_to_node[0].score == score_to_find ? depth_to_node : nil
+
+  end
+
+  def max
+    current_node = self
+    max_score = @score
+    while current_node.child_right
+      max_score = current_node.child_right.score
+      current_node = current_node.child_right
+    end
+
+    max_score
+  end
+
 
   # ******************* INSERTING *******************
   def insert(score, title)
-    if @title
+    if @score
       if score < @score
         return 1 + @child_left.insert(score, title) if @child_left
         @child_left = Node.new(score,title)
@@ -33,24 +59,18 @@ class Node
   end
 
   # ******************* SEARCHING *******************
-  
-  def depth_of(score_to_find, current_depth = 0)
-    # return nil if current_node == nil
-    if score_to_find == @score
-      return current_depth
+  def search(score, parent_node = self)
+
+    if score < @score
+      return [self] << @child_left.search(score, self) if @child_left
     end
 
-    if score_to_find < @score
-      @child_left.depth_of_recursive(score_to_find, current_depth + 1)
-    else
-      @child_right.depth_of_recursive(score_to_find, current_depth + 1)
+    if score > @score
+      return [self] << @child_right.search(score, self) if @child_right
     end
-    return current_depth
+    return [self]
+
+
   end
-
-
-
-
-
 
 end
