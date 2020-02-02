@@ -63,9 +63,29 @@ class NodeTest < Minitest::Test
     node.insert(92, "Sharknado 3")
     node.insert(50, "Hannibal Buress: Animal Furnace")
 
-    assert_equal 92, node.max
-
+    assert_equal ({"Sharknado 3" => 92}), node.max
   end
 
+  def test_it_can_find_min_score
+    node = Node.new()
+    node.insert(61, "Bill & Ted's Excellent Adventure")
+    node.insert(16, "Johnny English")
+    node.insert(92, "Sharknado 3")
+    node.insert(50, "Hannibal Buress: Animal Furnace")
 
+    assert_equal ({"Johnny English" => 16}), node.min
+  end
+
+  def test_it_can_be_sorted
+    node = Node.new()
+    node.insert(61, "Bill & Ted's Excellent Adventure")
+    node.insert(16, "Johnny English")
+    node.insert(92, "Sharknado 3")
+    node.insert(50, "Hannibal Buress: Animal Furnace")
+
+    assert_equal [{"Johnny English"=>16},
+   {"Hannibal Buress: Animal Furnace"=>50},
+   {"Bill & Ted's Excellent Adventure"=>61},
+  {"Sharknado 3"=>92}], node.sort
+  end
 end

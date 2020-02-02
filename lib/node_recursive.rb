@@ -15,28 +15,37 @@ class Node
 
 
   def depth_of(score_to_find)
-    map_to_node = self.search(score_to_find)
-    depth_to_node = 0
-
-    while map_to_node[1]
-      depth_to_node += 1
-      map_to_node = map_to_node[1]
-    end
-
-    map_to_node[0].score == score_to_find ? depth_to_node : nil
-
+    map_to_node = self.search(score_to_find).flatten
+    map_to_node.last.score == score_to_find ? map_to_node.length - 1 : nil
   end
 
   def max
-    current_node = self
-    max_score = @score
-    while current_node.child_right
-      max_score = current_node.child_right.score
-      current_node = current_node.child_right
-    end
-
-    max_score
+    return {@title => @score} if !@child_right
+    @child_right.max
   end
+
+  def min
+    return {@title => @score} if !@child_left
+    @child_left.min
+  end
+
+  def sort(sorted_nodes = [])
+    unsorted_nodes = self.search(self.min)
+    
+
+
+
+
+
+
+
+  end
+
+
+
+
+
+
 
 
   # ******************* INSERTING *******************
