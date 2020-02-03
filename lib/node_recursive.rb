@@ -9,6 +9,7 @@ class Node
     @child_right  = nil
   end
 
+# **************** SHAPE ****************
   def leaf?
     !(@child_left || @child_right)
   end
@@ -45,14 +46,47 @@ class Node
     @child_left.minimum_node
   end
 
-  def sort(node = self, sorted_nodes = [])
-    node.sort(node.child_left, sorted_nodes) if node.child_left
-    sorted_nodes << {node.title => node.score}
-    node.sort(node.child_right, sorted_nodes) if node.child_right
+  def sort(node = self, ordered_nodes = [])
+    return if node.nil?
 
-    sorted_nodes
+    sort(node.child_left, ordered_nodes)
+    ordered_nodes << {node.title => node.score}
+    sort(node.child_right, ordered_nodes)
+    ordered_nodes
   end
 
+  def health(depth = 0)
+    nodes_at_depth = self.level_order(self , depth)
+    health_report = []
+    nodes_at_depth.each do |node|
+      node_health = []
+      node_health << node.score
+      node_health << total_child_nodes = in_order(node).length
+      node_health << 100 * (node_health[1] / in_order(self).length.to_f )
+      node_health[2] = node_health[2].to_i
+      health_report << node_health
+    end
+
+    health_report
+  end
+
+  def leaves
+    self.leaf_search.length
+  end
+
+  def height(node = self)
+    if node.nil?
+      return -1
+    end
+    
+      left_branch = height(node.child_left)
+      right_branch = height(node.child_right)
+      if left_branch > right_branch
+        return left_branch + 1
+      else
+        return right_branch + 1
+      end
+  end
 
   # ******************* LOAD FILE *******************
 
@@ -100,9 +134,59 @@ class Node
     return [self]
   end
 
-  def health(depth)
+  def leaf_search(node = self, leaf_nodes = [])
+    return if node.nil?
+    if node.leaf?
+      leaf_nodes << node
+    end
+    leaf_search(node.child_left, leaf_nodes)
+    leaf_search(node.child_right, leaf_nodes)
 
-
+    leaf_nodes
   end
+
+# **************** TRAVERSING ********************
+  def level_order(node = self, depth = 0, ordered_nodes = [])
+    return if node.nil?
+    if depth == 0
+      return ordered_nodes << node
+    end
+    level_order(node.child_left, depth - 1 , ordered_nodes)
+    level_order(node.child_right, depth - 1, ordered_nodes)
+
+    ordered_nodes
+  end
+
+  def in_order(node = self, ordered_nodes = [])
+    return if node.nil?
+
+    in_order(node.child_left, ordered_nodes)
+    ordered_nodes << node
+    in_order(node.child_right, ordered_nodes)
+
+    ordered_nodes
+  end
+
+  def pre_order(node = self, ordered_nodes = [])
+    return if node.nil?
+
+    ordered_nodes << node
+    pre_order(node.child_left, ordered_nodes)
+    pre_order(node.child_right, ordered_nodes)
+
+
+    ordered_nodes
+  end
+
+  def post_order(node = self, ordered_nodes = [])
+    return if node.nil?
+
+    post_order(node.child_left, ordered_nodes)
+    post_order(node.child_right, ordered_nodes)
+    ordered_nodes << node
+
+    ordered_nodes
+  end
+
 
 end
