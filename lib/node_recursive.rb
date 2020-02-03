@@ -78,7 +78,7 @@ class Node
     if node.nil?
       return -1
     end
-    
+
       left_branch = height(node.child_left)
       right_branch = height(node.child_right)
       if left_branch > right_branch
@@ -139,8 +139,8 @@ class Node
     if node.leaf?
       leaf_nodes << node
     end
-    leaf_search(node.child_left, leaf_nodes)
-    leaf_search(node.child_right, leaf_nodes)
+    self.leaf_search(node.child_left, leaf_nodes)
+    self.leaf_search(node.child_right, leaf_nodes)
 
     leaf_nodes
   end
@@ -151,8 +151,8 @@ class Node
     if depth == 0
       return ordered_nodes << node
     end
-    level_order(node.child_left, depth - 1 , ordered_nodes)
-    level_order(node.child_right, depth - 1, ordered_nodes)
+    self.level_order(node.child_left, depth - 1 , ordered_nodes)
+    self.level_order(node.child_right, depth - 1, ordered_nodes)
 
     ordered_nodes
   end
@@ -160,9 +160,9 @@ class Node
   def in_order(node = self, ordered_nodes = [])
     return if node.nil?
 
-    in_order(node.child_left, ordered_nodes)
+    self.in_order(node.child_left, ordered_nodes)
     ordered_nodes << node
-    in_order(node.child_right, ordered_nodes)
+    self.in_order(node.child_right, ordered_nodes)
 
     ordered_nodes
   end
@@ -171,8 +171,8 @@ class Node
     return if node.nil?
 
     ordered_nodes << node
-    pre_order(node.child_left, ordered_nodes)
-    pre_order(node.child_right, ordered_nodes)
+    self.pre_order(node.child_left, ordered_nodes)
+    self.pre_order(node.child_right, ordered_nodes)
 
 
     ordered_nodes
@@ -181,8 +181,8 @@ class Node
   def post_order(node = self, ordered_nodes = [])
     return if node.nil?
 
-    post_order(node.child_left, ordered_nodes)
-    post_order(node.child_right, ordered_nodes)
+    self.post_order(node.child_left, ordered_nodes)
+    self.post_order(node.child_right, ordered_nodes)
     ordered_nodes << node
 
     ordered_nodes
